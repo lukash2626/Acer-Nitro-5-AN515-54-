@@ -1,0 +1,160 @@
+========================================
+ОТЧЁТ РАБОТ ПО ШАБЛОНУ padelup-theme v1.3.0
+Дата: 24 июня 2026
+========================================
+
+========================================
+1. ИСПРАВЛЕНИЕ КНОПКИ «ВЫЙТИ»
+========================================
+
+Файл: woocommerce/myaccount/navigation.php
+
+Проблема: Кнопка «Выйти» в личном кабинете не работала — при нажатии ничего не происходило.
+
+Причина: Ссылка использовала wc_get_account_endpoint_url('customer-logout'), который генерировал URL через WooCommerce endpoint. Если nonce истекал или endpoint был некорректно настроен, ссылка не работала.
+
+Исправление: Заменено на wc_logout_url(home_url()) с fallback на wp_logout_url(home_url()). Это стандартный WordPress-механизм выхода, который работает надёжнее.
+
+Код до:
+  $logout_url = wc_get_account_endpoint_url($endpoint);
+
+Код после:
+  $logout_url = function_exists('wc_logout_url') ? wc_logout_url(home_url()) : wp_logout_url(home_url());
+  echo '<a href="' . esc_url($logout_url) . '">' . esc_html($label) . '</a>';
+
+========================================
+2. УБИРАНИЕ ТОЧЕК ПЕРЕД ВКЛАДКАМИ
+========================================
+
+Файл: style.css (секция /* NAVIGATION */)
+
+Проблема: Перед пунктами меню навигации личного кабинета появлялись точки (псевдо-элементы WooCommerce).
+
+Исправление: Добавлены CSS-правила для полного подавления伪элементов:
+  .woocommerce-MyAccount-navigation ul li { list-style: none; }
+  .woocommerce-MyAccount-navigation ul li::before { display: none !important; content: none !important; }
+  .woocommerce-MyAccount-navigation ul li::after { display: none !important; content: none !important; }
+
+========================================
+3. ИСПРАВЛЕНИЕ ШИРИНЫ ФОРМ ВХОДА/РЕГИСТРАЦИИ
+========================================
+
+Файлы: style.css, woocommerce/myaccount.php
+
+Проблема: Формы входа и регистрации были сильно узкими.
+
+Причина: Страница /moj-akkaunt/ проходила через page.php (а не через шаблон myaccount.php). Обёртка .page-content имела max-width: 800px, что сужало формы.
+
+Исправления:
+  a) Добавлен CSS-класс: .woocommerce-account .page-content { max-width: 100%; }
+  b) Формы получили flex: 1 1 50% !important и max-width: none !important
+  c) Контент WooCommerce: width: 100% !important
+  d) В myaccount.php убран инлайн style с max-width: 1200px, заменён на CSS-класс myaccount-container
+
+========================================
+4. ИСПРАВЛЕНИЕ КОРОЗИНЫ
+========================================
+
+Файл: woocommerce/cart/cart.php
+
+Проблема 4.1: Отсутствовала кнопка «Оформить заказ».
+Причина: Блок cart-collaterals сwoocommerce_cart_totals() не был включён в шаблон.
+Исправление: Добавлен вызов woocommerce_cart_totals() внутри cart-collaterals.
+
+Проблема 4.2: Товары и итоги шли вертикально друг за другом.
+Исправление: Перестроен макет:
+  - Товары по центру (max-width: 800px)
+  - Блок суммы + «Оформить заказ» ПОД товарами
+  - На мобильных — на всю ширину
+
+CSS:
+  .cart-layout { display: flex; flex-direction: column; gap: 30px; max-width: 800px; margin: 0 auto; }
+
+Проблема 4.3: Названия товаров обрезались.
+Причина: CSS использовал -webkit-line-clamp: 2 и overflow: hidden.
+Исправление: Убрана обрезка, добавлен word-break: break-word.
+
+========================================
+5. АУДИТ И ИСПРАВЛЕНИЕ ОШИБОК
+========================================
+
+5.1 КРИТИЧЕСКИЕ ОШИБКИ:
+
+  js/main.js (строка 155):
+  - Был ReferenceError: typeof padelupData === 'undefined', но следующая строка читала padelupData.accountUrl
+  - Исправлено: убрано обращение к undefined переменной
+
+  woocommerce/myaccount/dashboard.php:
+  - get_posts() для shop_order заменён на wc_get_orders() (правильный API WC 3.0+)
+  - wc_get_customer_saved_methods_list() использовался для подсчёта адресов (это способы оплаты) — исправлено на get_user_meta()
+  - Способы оплаты теперь считаются правильно через wc_get_customer_saved_methods_list()
+  - do_action('woocommerce_account_dashboard') был удалён — восстановлен (ломает плагины)
+  - Inline-стили убраны, добавлен CSS-класс .btn--outline
+
+  woocommerce/myaccount/navigation.php:
+  - Мёртвая переменная $customer_orders удалена
+  - Дублирующий CSS-класс с <a> удалён
+  - Мёртвый case 'customer-logout' в switch удалён
+
+5.2 XSS-УЯЗВИМОСТИ:
+
+  header.php (строка 79):
+  - echo $wl_count → echo esc_html($wl_count)
+
+  header.php (строка 89):
+  - Добавлена проверка WC()->cart перед вызовом методов
+
+  functions.php (строка 232):
+  - echo $product->get_price_html() → echo wp_kses_post($product->get_price_html())
+
+  dashboard.php (строка 34):
+  - echo count($customer_orders) → echo esc_html(count($customer_orders))
+
+5.3 JAVASCRIPT ИСПРАВЛЕНИЯ:
+
+  js/main.js:
+  - setInterval hero-слайдера теперь сохраняется в переменную и работает только при наличии hero
+  - Удалены JS hover-эффекты product cards (CSS уже обрабатывает)
+  - parseInt(badge.textContent) + 1 → (parseInt(...) || 0) + 1 (защита от NaN)
+  - Удалён мёртвый обработчик update cart
+  - @keyframes spin перенесена из JS в style.css
+
+5.4 FUNCTIONS.PHP:
+
+  - Версия в комментарии @version 1.1.0 → 1.3.0
+  - AJAX handler: добавлена проверка WC()->cart
+  - padelup_create_wishlist_page(): добавлен transient чтобы не выполнять wp_insert_post при каждом init
+
+5.5 CSS:
+
+  - Удалено дублирование @keyframes fadeInUp (строки 875-876)
+  - Добавлен @keyframes spin для спиннера
+  - Добавлен класс .btn--outline для кнопки «Все заказы»
+  - Добавлена адаптивная версия .cart-layout для мобильных
+
+5.6 HEADER.PHP:
+
+  - Мобильное меню: логотип <span> заменён на <a> (кликабельность)
+  - Добавлен aria-label на кнопку закрытия мобильного меню
+
+========================================
+ИТОГОВАЯ СТАТИСТИКА
+========================================
+
+Файлов изменено: 8
+  - functions.php
+  - header.php
+  - style.css
+  - js/main.js
+  - woocommerce/myaccount.php
+  - woocommerce/myaccount/navigation.php
+  - woocommerce/myaccount/dashboard.php
+  - woocommerce/cart/cart.php
+
+Найдено и исправлено:
+  - Критических багов: 5
+  - XSS-уязвимостей: 4
+  - Утечек памяти JS: 2
+  - Мёртвого кода: 3
+  - CSS-дублей: 1
+  - Проблем верстки: 4 (формы, корзина, точки, кнопка выхода)

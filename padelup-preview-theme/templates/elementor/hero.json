@@ -1,0 +1,63 @@
+{
+    "version": "0.4",
+    "title": "PadelUp - Hero Banner",
+    "type": "page",
+    "content": [
+        {
+            "id": "padelup-hero-1",
+            "elType": "section",
+            "settings": {
+                "layout": "full_width",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "background_background": "classic",
+                "background_color": "#1a1a1a"
+            },
+            "elements": [
+                {
+                    "id": "padelup-hero-col-1",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 50
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-hero-widget-1",
+                            "elType": "widget",
+                            "widgetType": "padelup-hero",
+                            "settings": {
+                                "badge": "PREMIUM PADEL GEAR",
+                                "title": "ИГРАЙ<br>ЛУЧШЕ.<br><span>ПОБЕЖДАЙ.</span>",
+                                "subtitle": "Премиальная экипировка для падела",
+                                "button_text": "СМОТРЕТЬ КАТАЛОГ"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "id": "padelup-hero-col-2",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 50
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-hero-image-1",
+                            "elType": "widget",
+                            "widgetType": "image",
+                            "settings": {
+                                "image": {
+                                    "url": ""
+                                },
+                                "image_size": "full",
+                                "align": "center"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

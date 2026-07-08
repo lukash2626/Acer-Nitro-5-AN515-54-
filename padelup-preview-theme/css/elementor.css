@@ -1,0 +1,367 @@
+/**
+ * PadelUp Elementor Styles
+ *
+ * @package PadelUp
+ */
+
+:root {
+    --color-primary: #c8ff00;
+    --color-dark: #1a1a1a;
+    --color-darker: #111111;
+    --color-darkest: #0a0a0a;
+    --color-gray-dark: #2a2a2a;
+    --color-gray: #555555;
+    --color-gray-light: #888888;
+    --color-light: #f5f5f5;
+    --color-white: #ffffff;
+}
+
+.elementor-widget-padelup-hero .hero,
+.elementor-widget-padelup-products .products-section,
+.elementor-widget-padelup-categories .categories,
+.elementor-widget-padelup-brands .brands-section,
+.elementor-widget-padelup-benefits .benefits,
+.elementor-widget-padelup-newsletter .newsletter,
+.elementor-widget-padelup-instagram .instagram,
+.elementor-widget-padelup-promo .promo-banners {
+    padding: 0;
+    margin: 0;
+}
+
+.elementor-widget-padelup-hero .hero .container,
+.elementor-widget-padelup-products .products-section .container,
+.elementor-widget-padelup-categories .categories .container,
+.elementor-widget-padelup-brands .brands-section .container,
+.elementor-widget-padelup-benefits .benefits .container,
+.elementor-widget-padelup-newsletter .newsletter .container,
+.elementor-widget-padelup-instagram .instagram .container,
+.elementor-widget-padelup-promo .promo-banners .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.elementor-widget-padelup-hero .hero__slide {
+    min-height: 400px;
+}
+
+.elementor-widget-padelup-hero .hero__content {
+    padding: 40px 0;
+}
+
+.elementor-widget-padelup-hero .hero__badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--color-gray-light);
+    margin-bottom: 16px;
+}
+
+.elementor-widget-padelup-hero .hero__title {
+    font-size: 3rem;
+    font-weight: 900;
+    line-height: 1.05;
+    color: var(--color-white);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+}
+
+.elementor-widget-padelup-hero .hero__title span {
+    color: var(--color-primary);
+}
+
+.elementor-widget-padelup-hero .hero__desc {
+    font-size: 1rem;
+    color: var(--color-gray-light);
+    margin-bottom: 24px;
+}
+
+.elementor-widget-padelup-hero .hero__image img {
+    max-height: 350px;
+    object-fit: contain;
+}
+
+.elementor-widget-padelup-products .products__grid {
+    display: grid;
+    gap: 20px;
+}
+
+.elementor-widget-padelup-categories .categories__grid {
+    display: grid;
+    gap: 16px;
+}
+
+.elementor-widget-padelup-brands .brands__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    padding: 30px 0;
+}
+
+.elementor-widget-padelup-brands .brands__item {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.elementor-widget-padelup-brands .brands__item:hover {
+    opacity: 1;
+}
+
+.elementor-widget-padelup-benefits .benefits__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.elementor-widget-padelup-benefits .benefit {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.elementor-widget-padelup-benefits .benefit__icon {
+    width: 48px;
+    height: 48px;
+    background: var(--color-white);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.elementor-widget-padelup-benefits .benefit__icon svg {
+    width: 24px;
+    height: 24px;
+    color: var(--color-primary);
+    fill: var(--color-primary);
+}
+
+.elementor-widget-padelup-benefits .benefit__text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.elementor-widget-padelup-benefits .benefit__text span {
+    display: block;
+    font-weight: 400;
+    color: var(--color-gray-light);
+    font-size: 0.75rem;
+    margin-top: 2px;
+}
+
+.elementor-widget-padelup-newsletter .newsletter {
+    background: var(--color-dark);
+    color: var(--color-white);
+}
+
+.elementor-widget-padelup-newsletter .newsletter .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__title {
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__desc {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__form {
+    display: flex;
+    gap: 0;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__input {
+    padding: 14px 20px;
+    background: var(--color-gray-dark);
+    border: 1px solid #444;
+    border-right: none;
+    border-radius: 4px 0 0 4px;
+    color: var(--color-white);
+    width: 300px;
+    font-size: 0.9rem;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__input::placeholder {
+    color: var(--color-gray);
+}
+
+.elementor-widget-padelup-newsletter .newsletter__btn {
+    padding: 14px 24px;
+    background: var(--color-primary);
+    color: var(--color-dark);
+    border: none;
+    border-radius: 0 4px 4px 0;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.elementor-widget-padelup-newsletter .newsletter__btn:hover {
+    background: #b8ef00;
+}
+
+.elementor-widget-padelup-instagram .instagram__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.elementor-widget-padelup-instagram .instagram__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.elementor-widget-padelup-instagram .instagram__subtitle {
+    font-size: 0.85rem;
+    color: var(--color-gray-light);
+    margin-top: 4px;
+}
+
+.elementor-widget-padelup-instagram .instagram__follow {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+
+.elementor-widget-padelup-instagram .instagram__grid {
+    display: grid;
+    gap: 12px;
+}
+
+.elementor-widget-padelup-instagram .instagram__item {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.elementor-widget-padelup-instagram .instagram__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+}
+
+.elementor-widget-padelup-instagram .instagram__item:hover img {
+    transform: scale(1.08);
+}
+
+.elementor-widget-padelup-instagram .instagram__item-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.elementor-widget-padelup-instagram .instagram__item:hover .instagram__item-overlay {
+    opacity: 1;
+}
+
+.elementor-widget-padelup-promo .promo-banners__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.elementor-widget-padelup-promo .promo-banner {
+    position: relative;
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    padding: 40px;
+}
+
+.elementor-widget-padelup-promo .promo-banner--dark {
+    background: var(--color-dark);
+    color: var(--color-white);
+}
+
+.elementor-widget-padelup-promo .promo-banner--gray {
+    background: var(--color-gray-dark);
+    color: var(--color-white);
+}
+
+.elementor-widget-padelup-promo .promo-banner__subtitle {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.elementor-widget-padelup-promo .promo-banner__title {
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 12px;
+}
+
+.elementor-widget-padelup-promo .promo-banner__title span {
+    color: var(--color-primary);
+}
+
+.elementor-widget-padelup-promo .promo-banner__desc {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 20px;
+}
+
+.elementor-widget-padelup-promo .promo-banner__image {
+    position: absolute;
+    right: 30px;
+    top: 50%;
+    transform: translateY(-50%);
+    max-height: 200px;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .elementor-widget-padelup-hero .hero__title {
+        font-size: 2rem;
+    }
+
+    .elementor-widget-padelup-benefits .benefits__grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .elementor-widget-padelup-promo .promo-banners__grid {
+        grid-template-columns: 1fr;
+    }
+
+    .elementor-widget-padelup-newsletter .newsletter .container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .elementor-widget-padelup-newsletter .newsletter__input {
+        width: 100%;
+    }
+
+    .elementor-widget-padelup-instagram .instagram__header {
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,280 @@
+{
+    "version": "0.4",
+    "title": "PadelUp - Main Page",
+    "type": "page",
+    "content": [
+        {
+            "id": "padelup-hero-section",
+            "elType": "section",
+            "settings": {
+                "layout": "full_width",
+                "background_background": "classic",
+                "background_color": "#1a1a1a"
+            },
+            "elements": [
+                {
+                    "id": "padelup-hero-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-hero-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-hero",
+                            "settings": {
+                                "badge": "PREMIUM PADEL GEAR",
+                                "title": "ИГРАЙ<br>ЛУЧШЕ.<br><span>ПОБЕЖДАЙ.</span>",
+                                "subtitle": "Премиальная экипировка для падела",
+                                "button_text": "СМОТРЕТЬ КАТАЛОГ"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-categories-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "padding": {
+                    "unit": "px",
+                    "top": "60",
+                    "bottom": "60"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-categories-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-categories-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-categories",
+                            "settings": {
+                                "columns": "6"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-products-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "padding": {
+                    "unit": "px",
+                    "bottom": "60"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-products-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-products-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-products",
+                            "settings": {
+                                "title": "Хиты продаж",
+                                "products_source": "popular",
+                                "limit": {
+                                    "size": 6
+                                },
+                                "columns": "6"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-brands-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "background_background": "classic",
+                "background_color": "#f5f5f5",
+                "padding": {
+                    "unit": "px",
+                    "top": "50",
+                    "bottom": "50"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-brands-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-brands-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-brands",
+                            "settings": {
+                                "title": "Популярные бренды"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-promo-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "padding": {
+                    "unit": "px",
+                    "top": "60",
+                    "bottom": "60"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-promo-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-promo-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-promo"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-benefits-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "background_background": "classic",
+                "background_color": "#f5f5f5",
+                "padding": {
+                    "unit": "px",
+                    "top": "40",
+                    "bottom": "40"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-benefits-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-benefits-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-benefits"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-instagram-section",
+            "elType": "section",
+            "settings": {
+                "layout": "boxed",
+                "content_width": {
+                    "unit": "px",
+                    "size": 1280
+                },
+                "padding": {
+                    "unit": "px",
+                    "top": "60",
+                    "bottom": "60"
+                }
+            },
+            "elements": [
+                {
+                    "id": "padelup-instagram-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-instagram-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-instagram",
+                            "settings": {
+                                "username": "@padelup.store",
+                                "columns": "6"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "padelup-newsletter-section",
+            "elType": "section",
+            "settings": {
+                "layout": "full_width",
+                "background_background": "classic",
+                "background_color": "#1a1a1a"
+            },
+            "elements": [
+                {
+                    "id": "padelup-newsletter-col",
+                    "elType": "column",
+                    "settings": {
+                        "_column_size": 100
+                    },
+                    "elements": [
+                        {
+                            "id": "padelup-newsletter-widget",
+                            "elType": "widget",
+                            "widgetType": "padelup-newsletter",
+                            "settings": {
+                                "title": "Получай первым",
+                                "description": "Новости и специальные предложения"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

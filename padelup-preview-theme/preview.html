@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PadelUp Store — Премиальная экипировка для падела</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ===================== RESET & VARIABLES ===================== */
+:root {
+    --color-primary: #c8ff00;
+    --color-dark: #1a1a1a;
+    --color-darker: #111111;
+    --color-darkest: #0a0a0a;
+    --color-gray-dark: #2a2a2a;
+    --color-gray: #555555;
+    --color-gray-light: #888888;
+    --color-light: #f5f5f5;
+    --color-white: #ffffff;
+    --color-text: #333333;
+    --color-text-light: #666666;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --container-width: 1280px;
+    --header-height: 80px;
+    --topbar-height: 40px;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; scroll-behavior: smooth; }
+body { font-family: var(--font-family); color: var(--color-text); background-color: var(--color-white); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; transition: color 0.3s ease; }
+img { max-width: 100%; height: auto; display: block; }
+ul, ol { list-style: none; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+.container { max-width: var(--container-width); margin: 0 auto; padding: 0 20px; }
+
+/* ===================== TOPBAR ===================== */
+.topbar { background-color: var(--color-darker); color: var(--color-white); font-size: 0.75rem; height: var(--topbar-height); display: flex; align-items: center; }
+.topbar .container { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+.topbar__info { display: flex; gap: 30px; }
+.topbar__info span { opacity: 0.8; }
+.topbar__info span:first-child { color: var(--color-primary); font-weight: 600; }
+.topbar__links { display: flex; gap: 20px; align-items: center; }
+.topbar__links a { opacity: 0.8; color: #fff; }
+.topbar__links a:hover { opacity: 1; }
+.topbar__lang { font-weight: 600; cursor: pointer; opacity: 0.8; }
+
+/* ===================== HEADER ===================== */
+.header { background-color: var(--color-white); border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 1000; }
+.header .container { display: flex; align-items: center; justify-content: space-between; height: var(--header-height); }
+.header__logo { font-size: 1.75rem; font-weight: 900; color: var(--color-dark); letter-spacing: -1px; }
+.header__logo span { color: var(--color-primary); }
+.header__nav-list { display: flex; gap: 28px; list-style: none; margin: 0; padding: 0; }
+.header__nav-list a { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; color: var(--color-dark); position: relative; padding: 5px 0; }
+.header__nav-list a:hover { color: var(--color-primary); }
+.header__nav-list a.outlet { color: #c8ff00; }
+.header__nav-list a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--color-primary); transition: width 0.3s ease; }
+.header__nav-list a:hover::after { width: 100%; }
+.header__actions { display: flex; gap: 18px; align-items: center; }
+.header__action-btn { position: relative; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 50%; transition: background-color 0.3s; color: var(--color-dark); }
+.header__action-btn:hover { background-color: var(--color-light); }
+.header__action-btn svg { width: 22px; height: 22px; }
+.header__cart-count { position: absolute; top: 2px; right: 2px; background: var(--color-primary); color: var(--color-dark); font-size: 0.65rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+
+/* ===================== HERO ===================== */
+.hero { background-color: var(--color-dark); position: relative; overflow: hidden; }
+.hero__slide { display: flex; align-items: center; min-height: 520px; padding: 60px 0; }
+.hero__content { flex: 1; max-width: 500px; z-index: 2; padding-left: 60px; }
+.hero__badge { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; color: var(--color-primary); margin-bottom: 20px; }
+.hero__title { font-size: 3.5rem; font-weight: 900; line-height: 1.05; color: var(--color-white); margin-bottom: 20px; text-transform: uppercase; }
+.hero__title span { color: var(--color-primary); }
+.hero__desc { font-size: 1rem; color: var(--color-gray-light); margin-bottom: 30px; line-height: 1.5; }
+.hero__image { flex: 1; display: flex; justify-content: center; align-items: center; position: relative; }
+.hero__image-placeholder { width: 420px; height: 420px; background: linear-gradient(135deg, #222 0%, #2a2a2a 50%, #1a1a1a 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+.hero__image-placeholder::before { content: ''; position: absolute; inset: 20px; border-radius: 50%; border: 2px solid rgba(200,255,0,0.2); }
+.hero__racket { width: 300px; height: 300px; display: flex; align-items: center; justify-content: center; }
+.hero__dots { display: flex; gap: 8px; margin-top: 30px; }
+.hero__dot { width: 40px; height: 3px; background: var(--color-gray); cursor: pointer; transition: background 0.3s; }
+.hero__dot.active { background: var(--color-primary); width: 60px; }
+.hero__arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 50px; height: 50px; background: rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-white); transition: background 0.3s; z-index: 5; font-size: 1.5rem; }
+.hero__arrow:hover { background: var(--color-primary); color: var(--color-dark); }
+.hero__arrow--prev { left: 20px; }
+.hero__arrow--next { right: 20px; }
+
+/* ===================== BUTTONS ===================== */
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 28px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; cursor: pointer; }
+.btn--primary { background: var(--color-primary); color: var(--color-dark); }
+.btn--primary:hover { background: #b8ef00; transform: translateY(-2px); }
+.btn--outline { border: 2px solid var(--color-white); color: var(--color-white); background: transparent; }
+.btn__arrow { font-size: 1.2rem; transition: transform 0.3s; }
+.btn:hover .btn__arrow { transform: translateX(4px); }
+
+/* ===================== CATEGORIES ===================== */
+.categories { padding: 0; background: #000; }
+.categories__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0; }
+.category-card { position: relative; overflow: hidden; aspect-ratio: 1; cursor: pointer; background: var(--color-dark); display: block; }
+.category-card__bg { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.category-card:hover .category-card__bg { transform: scale(1.08); }
+.category-card__overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%); display: flex; flex-direction: column; justify-content: flex-end; padding: 20px; }
+.category-card__badge { position: absolute; top: 12px; left: 12px; background: var(--color-primary); color: var(--color-dark); font-size: 0.7rem; font-weight: 700; padding: 4px 10px; border-radius: 4px; text-transform: uppercase; }
+.category-card__title { color: var(--color-white); font-size: 1rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+.category-card__link { color: var(--color-gray-light); font-size: 0.8rem; font-weight: 500; display: flex; align-items: center; gap: 6px; }
+.cat-image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ===================== SECTION TITLES ===================== */
+.section-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.section-title__text { font-size: 1.5rem; font-weight: 800; text-transform: uppercase; color: var(--color-dark); }
+.section-title__link { font-size: 0.85rem; font-weight: 600; color: var(--color-gray-light); display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
+.section-title__link:hover { color: var(--color-dark); }
+
+/* ===================== PRODUCT CARDS ===================== */
+.products-section { padding: 40px 0 60px; }
+.products__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+.products__grid--4 { grid-template-columns: repeat(4, 1fr); }
+.product-card { border-radius: 16px; overflow: hidden; background: var(--color-white); border: 1px solid rgba(0,0,0,0.06); transition: box-shadow 0.4s, transform 0.4s; position: relative; }
+.product-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.12); transform: translateY(-6px); }
+.product-card__image-wrapper { position: relative; padding: 24px 20px; background: linear-gradient(135deg, #f8f8f8 0%, #f0f0f0 100%); aspect-ratio: 1; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.product-card__image { max-height: 160px; object-fit: contain; transition: transform 0.5s; }
+.product-card:hover .product-card__image { transform: scale(1.08); }
+.product-card__wishlist { position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; border-radius: 50%; background: var(--color-white); border: none; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 12px rgba(0,0,0,0.1); transition: all 0.3s ease; opacity: 0; cursor: pointer; }
+.product-card:hover .product-card__wishlist { opacity: 1; }
+.product-card__wishlist:hover { background: var(--color-primary); }
+.product-card__info { padding: 14px 16px 16px; }
+.product-card__brand { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--color-gray-light); margin-bottom: 4px; }
+.product-card__name { font-size: 0.85rem; font-weight: 600; color: var(--color-dark); margin-bottom: 12px; line-height: 1.4; min-height: 2.4em; }
+.product-card__bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid #f0f0f0; }
+.product-card__price { font-size: 1rem; font-weight: 800; color: var(--color-dark); }
+.product-card__cart-btn { width: 38px; height: 38px; background: var(--color-primary); border: none; border-radius: 10px; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; cursor: pointer; flex-shrink: 0; }
+.product-card__cart-btn:hover { background: var(--color-dark); }
+.product-card__cart-btn:hover svg { color: var(--color-primary); }
+.product-card__cart-btn svg { width: 16px; height: 16px; color: var(--color-dark); }
+
+/* ===================== BRAND FILTERS ===================== */
+.brand-filters { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; }
+.brand-filter { padding: 6px 16px; border: 2px solid #eee; border-radius: 6px; cursor: pointer; transition: border-color 0.3s; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+.brand-filter:hover, .brand-filter.active { border-color: var(--color-dark); }
+
+/* ===================== BRANDS ===================== */
+.brands-section { padding: 50px 0; background: var(--color-white); border-top: 1px solid #eee; border-bottom: 1px solid #eee; }
+.brands__title { text-align: left; font-size: 1.3rem; font-weight: 800; text-transform: uppercase; color: var(--color-dark); margin-bottom: 30px; }
+.brands__list { display: flex; justify-content: flex-start; align-items: center; gap: 40px; flex-wrap: wrap; }
+.brands__item { opacity: 0.55; transition: opacity 0.3s; font-weight: 800; font-size: 1.05rem; text-transform: uppercase; letter-spacing: 0.5px; }
+.brands__item:hover { opacity: 1; }
+.brands__item--logo { height: 28px; }
+
+/* ===================== PROMO BANNERS ===================== */
+.promo-banners { padding: 0 0 60px; }
+.promo-banners__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.promo-banner { position: relative; border-radius: 16px; overflow: hidden; min-height: 280px; display: flex; align-items: center; padding: 40px; cursor: pointer; }
+.promo-banner--dark { background: var(--color-dark); color: var(--color-white); }
+.promo-banner--gray { background: #2a2a2a; color: var(--color-white); }
+.promo-banner__content { position: relative; z-index: 2; }
+.promo-banner__subtitle { font-size: 1rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
+.promo-banner__title { font-size: 2.8rem; font-weight: 900; line-height: 1.05; margin-bottom: 10px; }
+.promo-banner__title span { color: var(--color-primary); }
+.promo-banner__desc { font-size: 0.85rem; opacity: 0.7; margin-bottom: 24px; text-transform: uppercase; }
+
+/* ===================== BENEFITS ===================== */
+.benefits { padding: 40px 0; background: var(--color-light); }
+.benefits__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; }
+.benefit { display: flex; align-items: center; gap: 16px; }
+.benefit__icon { width: 48px; height: 48px; background: var(--color-white); border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.benefit__icon svg { width: 24px; height: 24px; }
+.benefit__title { font-size: 0.9rem; font-weight: 700; line-height: 1.3; }
+.benefit__subtitle { font-size: 0.78rem; font-weight: 400; color: var(--color-gray-light); margin-top: 2px; }
+
+/* ===================== INSTAGRAM ===================== */
+.instagram { padding: 60px 0; }
+.instagram__header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.instagram__title { font-size: 1.3rem; font-weight: 800; text-transform: uppercase; }
+.instagram__subtitle { font-size: 0.85rem; color: var(--color-gray-light); margin-top: 4px; }
+.instagram__follow { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.instagram__handle { font-weight: 700; font-size: 0.95rem; }
+.instagram__btn { background: var(--color-primary); color: var(--color-dark); font-weight: 700; font-size: 0.8rem; padding: 10px 20px; border-radius: 4px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; }
+.instagram__grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; }
+.instagram__item { aspect-ratio: 1; border-radius: 8px; overflow: hidden; position: relative; cursor: pointer; display: block; background: #2a2a2a; }
+.instagram__item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+.instagram__item:hover img { transform: scale(1.08); }
+.instagram__item-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; }
+.instagram__item:hover .instagram__item-overlay { opacity: 1; }
+
+/* ===================== NEWSLETTER ===================== */
+.newsletter { padding: 50px 0; background: var(--color-darkest); color: var(--color-white); }
+.newsletter .container { display: flex; justify-content: space-between; align-items: center; }
+.newsletter__title { font-size: 1.3rem; font-weight: 800; text-transform: uppercase; margin-bottom: 6px; }
+.newsletter__desc { font-size: 0.85rem; opacity: 0.5; }
+.newsletter__form { display: flex; gap: 0; }
+.newsletter__input { padding: 14px 20px; background: var(--color-gray-dark); border: 1px solid #333; border-right: none; border-radius: 4px 0 0 4px; color: var(--color-white); width: 300px; font-size: 0.9rem; font-family: inherit; }
+.newsletter__input::placeholder { color: var(--color-gray); }
+.newsletter__input:focus { outline: none; border-color: var(--color-primary); }
+.newsletter__btn { padding: 14px 22px; background: var(--color-primary); color: var(--color-dark); border: none; border-radius: 0 4px 4px 0; font-weight: 700; font-size: 1.1rem; cursor: pointer; transition: background 0.3s; }
+.newsletter__btn:hover { background: #b8ef00; }
+
+/* ===================== FOOTER ===================== */
+.footer { background: var(--color-darkest); color: var(--color-white); padding: 60px 0 0; }
+.footer__grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1.5fr; gap: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.footer__logo { font-size: 1.5rem; font-weight: 900; margin-bottom: 14px; }
+.footer__logo span { color: var(--color-primary); }
+.footer__desc { font-size: 0.82rem; opacity: 0.45; line-height: 1.65; margin-bottom: 20px; }
+.footer__social { display: flex; gap: 10px; }
+.footer__social a { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: center; transition: background 0.3s; color: var(--color-white); }
+.footer__social a:hover { background: var(--color-primary); color: var(--color-dark); }
+.footer__social a svg { width: 16px; height: 16px; }
+.footer__heading { font-size: 0.82rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+.footer__links { display: flex; flex-direction: column; gap: 10px; }
+.footer__links a { font-size: 0.82rem; opacity: 0.45; transition: opacity 0.3s; }
+.footer__links a:hover { opacity: 1; color: var(--color-primary); }
+.footer__contact-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
+.footer__contact-item svg { width: 16px; height: 16px; opacity: 0.45; margin-top: 2px; flex-shrink: 0; }
+.footer__contact-item p { font-size: 0.82rem; opacity: 0.45; line-height: 1.5; }
+.footer__phone { font-size: 1.4rem; font-weight: 800; opacity: 1 !important; }
+.footer__phone-label { font-size: 0.78rem; opacity: 0.45; margin-top: 4px; }
+.footer__bottom { display: flex; justify-content: space-between; align-items: center; padding: 22px 0; font-size: 0.78rem; opacity: 0.35; }
+.footer__bottom-links { display: flex; gap: 20px; }
+.footer__bottom-links a { opacity: 0.85; }
+
+/* ===================== MOBILE MENU ===================== */
+.mobile-menu { display: none; }
+.mobile-menu-toggle { display: none; }
+
+/* ===================== TWO COLUMN GRID ===================== */
+.two-col-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+
+/* ===================== SLIDE NUMBER ===================== */
+.hero__slide-number { display: flex; align-items: center; gap: 8px; margin-top: 20px; }
+.hero__slide-num { font-size: 0.85rem; color: var(--color-gray-light); }
+.hero__slide-num.active { color: var(--color-white); font-weight: 700; }
+.hero__slide-divider { width: 1px; height: 16px; background: var(--color-gray); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1200px) {
+    .categories__grid { grid-template-columns: repeat(3, 1fr); }
+    .products__grid { grid-template-columns: repeat(3, 1fr); }
+    .instagram__grid { grid-template-columns: repeat(3, 1fr); }
+    .footer__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 992px) {
+    .header__nav { display: none; }
+    .hero__title { font-size: 2.5rem; }
+    .promo-banners__grid { grid-template-columns: 1fr; }
+    .benefits__grid { grid-template-columns: repeat(2, 1fr); }
+    .two-col-grid { grid-template-columns: 1fr; }
+    .mobile-menu-toggle { display: flex; }
+}
+@media (max-width: 768px) {
+    .topbar { display: none; }
+    .categories__grid { grid-template-columns: repeat(2, 1fr); }
+    .products__grid { grid-template-columns: repeat(2, 1fr); }
+    .instagram__grid { grid-template-columns: repeat(2, 1fr); }
+    .newsletter .container { flex-direction: column; gap: 20px; text-align: center; }
+    .footer__grid { grid-template-columns: 1fr; }
+    .hero__content { padding-left: 20px; }
+    .hero__title { font-size: 2rem; }
+    .mobile-menu { display: block; }
+}
+@media (max-width: 480px) {
+    .categories__grid, .products__grid, .instagram__grid { grid-template-columns: 1fr; }
+}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--color-light); }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #999; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+.animate-fade-in { animation: fadeInUp 0.6s ease forwards; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<!-- ===================== TOPBAR ===================== -->
+<div class="topbar">
+  <div class="container">
+    <div class="topbar__info">
+      <span>Бесплатная доставка от 10 000 ₽</span>
+      <span>Оригинальная продукция</span>
+      <span>Доставка по всей России</span>
+    </div>
+    <div class="topbar__links">
+      <a href="#">О нас</a>
+      <a href="#">Магазины</a>
+      <a href="#">Контакты</a>
+      <span class="topbar__lang">RUS ▾</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="header" id="header">
+  <div class="container">
+    <a href="#" class="header__logo">Padel<span>Up</span></a>
+    <nav>
+      <ul class="header__nav-list">
+        <li><a href="#">НОВИНКИ</a></li>
+        <li><a href="#">РАКЕТКИ</a></li>
+        <li><a href="#">ОДЕЖДА</a></li>
+        <li><a href="#">ОБУВЬ</a></li>
+        <li><a href="#">АКСЕССУАРЫ</a></li>
+        <li><a href="#" class="outlet">OUTLET</a></li>
+        <li><a href="#">OFF COURT</a></li>
+      </ul>
+    </nav>
+    <div class="header__actions">
+      <!-- Search -->
+      <a href="#" class="header__action-btn" aria-label="Поиск">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </a>
+      <!-- Account -->
+      <a href="#" class="header__action-btn" aria-label="Аккаунт">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </a>
+      <!-- Wishlist -->
+      <a href="#" class="header__action-btn" aria-label="Избранное">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+      </a>
+      <!-- Cart -->
+      <a href="#" class="header__action-btn" aria-label="Корзина">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+        <span class="header__cart-count">2</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__slide">
+      <div class="hero__content animate-fade-in">
+        <div class="hero__badge">PREMIUM PADEL GEAR</div>
+        <h1 class="hero__title">ИГРАЙ<br>ЛУЧШЕ.<br><span>ПОБЕЖДАЙ.</span></h1>
+        <p class="hero__desc">Премиальная экипировка для падела</p>
+        <a href="#" class="btn btn--primary">
+          СМОТРЕТЬ КАТАЛОГ
+          <span class="btn__arrow">→</span>
+        </a>
+        <div class="hero__dots" style="margin-top:30px;">
+          <div class="hero__dot active" data-slide="0"></div>
+          <div class="hero__dot" data-slide="1"></div>
+          <div class="hero__dot" data-slide="2"></div>
+        </div>
+        <div class="hero__slide-number" style="margin-top:14px;">
+          <span class="hero__slide-num active">01</span>
+          <div class="hero__slide-divider"></div>
+          <span class="hero__slide-num">02</span>
+          <div class="hero__slide-divider"></div>
+          <span class="hero__slide-num">03</span>
+        </div>
+      </div>
+      <div class="hero__image">
+        <!-- Ракетка NOX AT10 Genius — SVG placeholder -->
+        <div class="hero__image-placeholder">
+          <svg width="260" height="320" viewBox="0 0 260 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Корпус ракетки -->
+            <ellipse cx="130" cy="130" rx="110" ry="120" fill="#111" stroke="#333" stroke-width="8"/>
+            <!-- Сетка -->
+            <g stroke="#2a2a2a" stroke-width="1.5" opacity="0.7">
+              <line x1="30" y1="90" x2="230" y2="90"/><line x1="30" y1="110" x2="230" y2="110"/><line x1="30" y1="130" x2="230" y2="130"/><line x1="30" y1="150" x2="230" y2="150"/><line x1="30" y1="170" x2="230" y2="170"/>
+              <line x1="75" y1="20" x2="75" y2="240"/><line x1="100" y1="14" x2="100" y2="246"/><line x1="130" y1="10" x2="130" y2="250"/><line x1="160" y1="14" x2="160" y2="246"/><line x1="185" y1="20" x2="185" y2="240"/>
+            </g>
+            <!-- Логотип NOX -->
+            <text x="130" y="140" text-anchor="middle" font-family="Arial Black, sans-serif" font-weight="900" font-size="38" fill="#c8ff00" letter-spacing="2">NOX</text>
+            <!-- Рамка ракетки светлая -->
+            <ellipse cx="130" cy="130" rx="110" ry="120" fill="none" stroke="#444" stroke-width="12"/>
+            <ellipse cx="130" cy="130" rx="110" ry="120" fill="none" stroke="#c8ff00" stroke-width="3" stroke-dasharray="20,8" opacity="0.3"/>
+            <!-- Рукоятка -->
+            <rect x="108" y="245" width="44" height="72" rx="8" fill="#222" stroke="#444" stroke-width="3"/>
+            <rect x="116" y="252" width="28" height="58" rx="5" fill="#1a1a1a"/>
+            <!-- Бандаж -->
+            <rect x="108" y="240" width="44" height="12" rx="4" fill="#333"/>
+            <rect x="108" y="305" width="44" height="10" rx="5" fill="#c8ff00"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="hero__arrow hero__arrow--prev" aria-label="Предыдущий">‹</button>
+  <button class="hero__arrow hero__arrow--next" aria-label="Следующий">›</button>
+</section>
+
+<!-- ===================== CATEGORIES ===================== -->
+<section class="categories">
+  <div class="categories__grid">
+    <!-- НОВИНКИ -->
+    <a href="#" class="category-card" style="background: linear-gradient(135deg,#1a1a1a 0%,#2a2a2a 100%);">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a,#222);">
+        <svg width="90" height="90" viewBox="0 0 90 90" fill="none"><circle cx="45" cy="42" r="35" fill="#111" stroke="#333" stroke-width="5"/><text x="45" y="48" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="11" fill="#c8ff00">NEW</text><ellipse cx="45" cy="42" r="35" fill="none" stroke="#222" stroke-width="8"/></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__badge">NEW</div>
+        <div class="category-card__title">НОВИНКИ</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+    <!-- РАКЕТКИ -->
+    <a href="#" class="category-card" style="background:#1c1c1c;">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#181818,#2a2a2a);">
+        <svg width="70" height="100" viewBox="0 0 70 100" fill="none"><ellipse cx="35" cy="35" rx="30" ry="32" fill="#111" stroke="#333" stroke-width="6"/><text x="35" y="40" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="10" fill="#c8ff00">BP</text><rect x="26" y="64" width="18" height="30" rx="5" fill="#222"/><rect x="26" y="62" width="18" height="5" rx="2" fill="#333"/></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__title">РАКЕТКИ</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+    <!-- ОДЕЖДА -->
+    <a href="#" class="category-card" style="background:#1a1a1a;">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a,#333);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><path d="M20 18 L10 30 L22 34 L22 68 L58 68 L58 34 L70 30 L60 18 L48 26 C44 22 36 22 32 26 Z" fill="#222" stroke="#444" stroke-width="2"/><text x="40" y="52" text-anchor="middle" font-family="Arial" font-weight="700" font-size="9" fill="#fff" opacity="0.7">adidas</text></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__title">ОДЕЖДА</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+    <!-- ОБУВЬ -->
+    <a href="#" class="category-card" style="background:#1a1a1a;">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1e1e1e,#2e2e2e);">
+        <svg width="100" height="65" viewBox="0 0 100 65" fill="none"><path d="M5 45 Q20 20 50 22 Q75 24 90 35 L92 48 Q85 55 75 52 L25 52 Q10 55 5 48 Z" fill="#bbb" stroke="#999" stroke-width="1.5"/><path d="M5 45 Q20 35 50 36 Q70 37 90 42" stroke="#888" stroke-width="1.5" fill="none"/><path d="M30 36 L32 24 M45 35 L47 23 M60 36 L62 26" stroke="#c8ff00" stroke-width="2" opacity="0.7"/></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__title">ОБУВЬ</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+    <!-- АКСЕССУАРЫ -->
+    <a href="#" class="category-card" style="background:#1a1a1a;">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#1a1a1a,#252525);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><rect x="12" y="22" width="28" height="36" rx="8" fill="#222" stroke="#444" stroke-width="3"/><text x="26" y="45" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="9" fill="#c8ff00">BP</text><circle cx="58" cy="26" r="14" fill="#333" stroke="#555" stroke-width="2.5"/><path d="M50 26 L58 20 L66 26 L58 32 Z" fill="#c8ff00" opacity="0.8"/></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__title">АКСЕССУАРЫ</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+    <!-- OFF COURT -->
+    <a href="#" class="category-card" style="background:#1a1a1a;">
+      <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#222,#1a1a1a);">
+        <svg width="80" height="80" viewBox="0 0 80 80" fill="none"><circle cx="40" cy="28" r="14" fill="#333" stroke="#555" stroke-width="2.5"/><path d="M22 60 Q22 44 40 44 Q58 44 58 60 Z" fill="#2a2a2a" stroke="#444" stroke-width="2"/><path d="M28 60 L52 60" stroke="#c8ff00" stroke-width="2" opacity="0.5"/></svg>
+      </div>
+      <div class="category-card__overlay">
+        <div class="category-card__title">OFF COURT</div>
+        <div class="category-card__link">Смотреть все →</div>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ===================== HIT PRODUCTS ===================== -->
+<section class="products-section">
+  <div class="container">
+    <div class="section-title">
+      <h2 class="section-title__text">Хиты продаж</h2>
+      <a href="#" class="section-title__link">Смотреть все →</a>
+    </div>
+    <div class="products__grid">
+      <!-- Card 1 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#f0f0f0" stroke="#ddd" stroke-width="4"/><text x="60" y="55" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="10" fill="#1a1a1a">NOX</text><text x="60" y="68" text-anchor="middle" font-family="Arial" font-size="6" fill="#888">AT10 GENIUS</text><ellipse cx="60" cy="60" rx="52" ry="56" fill="none" stroke="#c8ff00" stroke-width="2" opacity="0.4"/><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Nox</div>
+          <div class="product-card__name">AT10 Genius 18K 2024</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">28 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#f0f0f0" stroke="#ccc" stroke-width="4"/><text x="60" y="52" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="8" fill="#1a1a1a">Bullpadel</text><text x="60" y="66" text-anchor="middle" font-family="Arial" font-size="6.5" fill="#666">Hack 03</text><ellipse cx="60" cy="60" rx="52" ry="56" fill="none" stroke="#333" stroke-width="2" opacity="0.3"/><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Bullpadel</div>
+          <div class="product-card__name">Hack 03 2024</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">26 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#eee" stroke="#bbb" stroke-width="4"/><text x="60" y="56" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="10" fill="#1a1a1a">HEAD</text><text x="60" y="68" text-anchor="middle" font-family="Arial" font-size="5.5" fill="#666">EXTREME PRO 2024</text><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Head</div>
+          <div class="product-card__name">Extreme Pro 2024</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">25 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#f0f0f0" stroke="#ddd" stroke-width="4"/><text x="60" y="55" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="9" fill="#1a1a1a">Babolat</text><text x="60" y="68" text-anchor="middle" font-family="Arial" font-size="5.5" fill="#666">TECHNICAL VIPER</text><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Babolat</div>
+          <div class="product-card__name">Technical Viper 2024</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">25 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#f5f5f5" stroke="#ccc" stroke-width="4"/><text x="60" y="56" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="9" fill="#1a1a1a">Adidas</text><text x="60" y="68" text-anchor="middle" font-family="Arial" font-size="5.5" fill="#666">METABONE HRD+ 2024</text><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Adidas</div>
+          <div class="product-card__name">Metabone HRD+ 2024</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">29 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="product-card">
+        <div class="product-card__image-wrapper">
+          <svg width="120" height="150" viewBox="0 0 120 150" fill="none"><ellipse cx="60" cy="60" rx="52" ry="56" fill="#f5f5f5" stroke="#ddd" stroke-width="4"/><text x="60" y="55" text-anchor="middle" font-family="Arial Black" font-weight="900" font-size="10" fill="#c8100c">Wilson</text><text x="60" y="68" text-anchor="middle" font-family="Arial" font-size="5.5" fill="#666">DEFY PRO V1</text><rect x="44" y="112" width="32" height="34" rx="5" fill="#ddd"/></svg>
+          <button class="product-card__wishlist" aria-label="В избранное"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg></button>
+        </div>
+        <div class="product-card__info">
+          <div class="product-card__brand">Wilson</div>
+          <div class="product-card__name">Defy Pro V1</div>
+          <div class="product-card__bottom">
+            <div class="product-card__price">24 990 ₽</div>
+            <button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SHOES + CLOTHING (2 columns) ===================== -->
+<section class="products-section" style="background: var(--color-light); padding: 60px 0;">
+  <div class="container">
+    <div class="two-col-grid">
+      <!-- SHOES -->
+      <div>
+        <div class="section-title">
+          <h2 class="section-title__text">Кроссовки для падела</h2>
+          <a href="#" class="section-title__link">Смотреть все →</a>
+        </div>
+        <div class="products__grid products__grid--4" style="grid-template-columns:repeat(4,1fr);">
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="100" height="70" viewBox="0 0 100 70" fill="none"><path d="M5 48 Q20 22 50 25 Q75 27 90 38 L92 50 Q85 58 75 55 L25 55 Q10 58 5 50 Z" fill="#e8e8e8" stroke="#bbb" stroke-width="1.5"/><path d="M20 39 L24 27 M38 38 L42 26 M55 39 L59 28" stroke="#c8ff00" stroke-width="2" opacity="0.8"/><text x="50" y="58" text-anchor="middle" font-family="Arial" font-size="7" fill="#888">asics</text></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Asics</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Solution Speed FF 3</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">12 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="100" height="70" viewBox="0 0 100 70" fill="none"><path d="M5 48 Q20 22 50 25 Q75 27 90 38 L92 50 Q85 58 75 55 L25 55 Q10 58 5 50 Z" fill="#d0d0d0" stroke="#aaa" stroke-width="1.5"/><path d="M20 39 L24 27 M38 38 L42 26 M55 39 L59 28" stroke="#333" stroke-width="2" opacity="0.6"/><text x="50" y="58" text-anchor="middle" font-family="Arial Black" font-size="6" fill="#555">Bullpadel</text></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Bullpadel</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Hack 23 Men</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">14 490 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="100" height="70" viewBox="0 0 100 70" fill="none"><path d="M5 48 Q20 22 50 25 Q75 27 90 38 L92 50 Q85 58 75 55 L25 55 Q10 58 5 50 Z" fill="#c0c0c0" stroke="#999" stroke-width="1.5"/><text x="50" y="42" text-anchor="middle" font-family="Arial Black" font-size="8" fill="#333">HEAD</text></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Head</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Sprint Pro 3.5</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">13 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="100" height="70" viewBox="0 0 100 70" fill="none"><path d="M5 48 Q20 22 50 25 Q75 27 90 38 L92 50 Q85 58 75 55 L25 55 Q10 58 5 50 Z" fill="#b0b0b0" stroke="#888" stroke-width="1.5"/><text x="50" y="42" text-anchor="middle" font-family="Arial Black" font-size="8" fill="#c8ff00">NOX</text></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Nox</div>
+              <div class="product-card__name" style="font-size:0.78rem;">At10 Lux Clay</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">11 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+        <!-- Shoe brand logos -->
+        <div style="display:flex;gap:20px;align-items:center;margin-top:16px;flex-wrap:wrap;">
+          <span style="font-family:Arial;font-weight:700;font-size:0.8rem;opacity:0.55;font-style:italic;">asics</span>
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.7rem;opacity:0.55;">Bullpadel</span>
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;">HEAD</span>
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;color:#c8ff00;">NOX</span>
+        </div>
+      </div>
+      <!-- CLOTHING -->
+      <div>
+        <div class="section-title">
+          <h2 class="section-title__text">Одежда для падела</h2>
+          <a href="#" class="section-title__link">Смотреть все →</a>
+        </div>
+        <div class="products__grid products__grid--4" style="grid-template-columns:repeat(4,1fr);">
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="70" height="80" viewBox="0 0 70 80" fill="none"><path d="M16 10 L6 24 L18 28 L18 72 L52 72 L52 28 L64 24 L54 10 L42 18 C38 14 32 14 28 18 Z" fill="#1a1a1a" stroke="#333" stroke-width="2"/></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Bullpadel</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Caltex Polo</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">5 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="70" height="80" viewBox="0 0 70 80" fill="none"><path d="M16 10 L6 24 L18 28 L18 72 L52 72 L52 28 L64 24 L54 10 L42 18 C38 14 32 14 28 18 Z" fill="#eee" stroke="#ccc" stroke-width="2"/></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Nox</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Training T-Shirt</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">4 490 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="70" height="80" viewBox="0 0 70 80" fill="none"><rect x="15" y="12" width="40" height="50" rx="4" fill="#222" stroke="#333" stroke-width="2"/><rect x="25" y="62" width="8" height="14" rx="2" fill="#222"/><rect x="37" y="62" width="8" height="14" rx="2" fill="#222"/></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Adidas</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Padel Shorts</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">5 290 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;">
+              <svg width="70" height="80" viewBox="0 0 70 80" fill="none"><path d="M10 22 L14 12 L56 12 L60 22 L50 22 L50 72 L20 72 L20 22 Z" fill="#bbb" stroke="#aaa" stroke-width="2"/></svg>
+            </div>
+            <div class="product-card__info">
+              <div class="product-card__brand">Stux</div>
+              <div class="product-card__name" style="font-size:0.78rem;">Hoodie Classic</div>
+              <div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">8 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div>
+            </div>
+          </div>
+        </div>
+        <!-- Clothing brand logos -->
+        <div style="display:flex;gap:20px;align-items:center;margin-top:16px;flex-wrap:wrap;">
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.7rem;opacity:0.55;">Bullpadel</span>
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;color:#c8ff00;">NOX</span>
+          <span style="font-family:Arial;font-weight:700;font-size:0.8rem;opacity:0.55;">adidas</span>
+          <span style="font-family:Arial Black;font-weight:900;font-size:0.7rem;opacity:0.55;">Stux</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ACCESSORIES + BALLS (2 columns) ===================== -->
+<section class="products-section">
+  <div class="container">
+    <div class="two-col-grid">
+      <!-- ACCESSORIES -->
+      <div>
+        <div class="section-title">
+          <h2 class="section-title__text">Аксессуары</h2>
+          <a href="#" class="section-title__link">Смотреть все →</a>
+        </div>
+        <div class="products__grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="product-card">
+            <div class="product-card__image-wrapper"><svg width="80" height="70" viewBox="0 0 80 70" fill="none"><path d="M10 20 Q40 5 70 20 L70 40 Q40 55 10 40 Z" fill="#222" stroke="#444" stroke-width="2"/><text x="40" y="35" text-anchor="middle" font-family="Arial Black" font-size="8" fill="#c8ff00">NOX</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Nox</div><div class="product-card__name" style="font-size:0.78rem;">Кепка Pro</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">2 990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper"><svg width="80" height="70" viewBox="0 0 80 70" fill="none"><rect x="18" y="10" width="44" height="50" rx="22" fill="#eee" stroke="#ccc" stroke-width="2"/><text x="40" y="40" text-anchor="middle" font-family="Arial Black" font-size="12" fill="#555">W</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Wilson</div><div class="product-card__name" style="font-size:0.78rem;">Напульсник</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">990 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper"><svg width="80" height="70" viewBox="0 0 80 70" fill="none"><rect x="18" y="15" width="44" height="40" rx="20" fill="#ddd" stroke="#bbb" stroke-width="2"/><text x="40" y="40" text-anchor="middle" font-family="Arial Black" font-size="7" fill="#555">Bullpadel</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Bullpadel</div><div class="product-card__name" style="font-size:0.78rem;">Повязка</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">1 290 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper"><svg width="80" height="70" viewBox="0 0 80 70" fill="none"><rect x="22" y="10" width="36" height="50" rx="5" fill="#111" stroke="#444" stroke-width="2"/><text x="40" y="40" text-anchor="middle" font-family="Arial" font-weight="700" font-size="7" fill="#fff">adidas</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Adidas</div><div class="product-card__name" style="font-size:0.78rem;">Повязка на голову</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">890 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;margin-top:14px;"><span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;color:#c8ff00;">NOX</span><span style="font-family:Arial Black;font-weight:900;font-size:0.7rem;opacity:0.55;">Bullpadel</span><span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;">HEAD</span><span style="font-family:Arial;font-weight:700;font-size:0.8rem;opacity:0.55;">adidas</span></div>
+      </div>
+      <!-- BALLS -->
+      <div>
+        <div class="section-title">
+          <h2 class="section-title__text">Мячи для падела</h2>
+          <a href="#" class="section-title__link">Смотреть все →</a>
+        </div>
+        <div class="products__grid" style="grid-template-columns:repeat(4,1fr);">
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;"><svg width="70" height="90" viewBox="0 0 70 90" fill="none"><rect x="20" y="5" width="30" height="80" rx="10" fill="#2a2a2a" stroke="#444" stroke-width="2"/><circle cx="35" cy="35" r="12" fill="#c8ff00" opacity="0.9"/><text x="35" y="56" text-anchor="middle" font-family="Arial Black" font-size="5.5" fill="#c8ff00">HEAD</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Head</div><div class="product-card__name" style="font-size:0.78rem;">Padel Pro S</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">890 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;"><svg width="70" height="90" viewBox="0 0 70 90" fill="none"><rect x="20" y="5" width="30" height="80" rx="10" fill="#1a1a1a" stroke="#333" stroke-width="2"/><circle cx="35" cy="35" r="12" fill="#e8e8e8" opacity="0.9"/><text x="35" y="56" text-anchor="middle" font-family="Arial Black" font-size="5" fill="#fff">Wilson</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Wilson</div><div class="product-card__name" style="font-size:0.78rem;">Padel Rush 100</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">790 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;"><svg width="70" height="90" viewBox="0 0 70 90" fill="none"><rect x="20" y="5" width="30" height="80" rx="10" fill="#111" stroke="#444" stroke-width="2"/><circle cx="35" cy="35" r="12" fill="#c8ff00" opacity="0.9"/><text x="35" y="56" text-anchor="middle" font-family="Arial Black" font-size="6" fill="#c8ff00">NOX</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Nox</div><div class="product-card__name" style="font-size:0.78rem;">Pro Titanium</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">750 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+          <div class="product-card">
+            <div class="product-card__image-wrapper" style="background:#fff;"><svg width="70" height="90" viewBox="0 0 70 90" fill="none"><rect x="20" y="5" width="30" height="80" rx="10" fill="#222" stroke="#555" stroke-width="2"/><circle cx="35" cy="35" r="12" fill="#ddd" opacity="0.9"/><text x="35" y="56" text-anchor="middle" font-family="Arial Black" font-size="4.5" fill="#fff">Bullpadel</text></svg></div>
+            <div class="product-card__info"><div class="product-card__brand">Bullpadel</div><div class="product-card__name" style="font-size:0.78rem;">BP Max</div><div class="product-card__bottom"><div class="product-card__price" style="font-size:0.9rem;">820 ₽</div><button class="product-card__cart-btn"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="m1 1 4 0 2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg></button></div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:20px;align-items:center;margin-top:14px;"><span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;">HEAD</span><span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;">Wilson</span><span style="font-family:Arial Black;font-weight:900;font-size:0.8rem;opacity:0.55;color:#c8ff00;">NOX</span><span style="font-family:Arial Black;font-weight:900;font-size:0.7rem;opacity:0.55;">Bullpadel</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== POPULAR BRANDS ===================== -->
+<section class="brands-section">
+  <div class="container">
+    <h3 class="brands__title">Популярные бренды</h3>
+    <div class="brands__list">
+      <span class="brands__item" style="font-size:1.1rem;font-weight:900;letter-spacing:1px;color:#c8ff00;">NOX</span>
+      <span class="brands__item" style="font-size:0.9rem;font-weight:800;">Bullpadel</span>
+      <span class="brands__item" style="font-size:1rem;font-weight:900;letter-spacing:1px;">HEAD</span>
+      <span class="brands__item" style="font-size:0.9rem;font-weight:800;">XOXDOG</span>
+      <span class="brands__item" style="font-size:0.95rem;font-weight:700;font-style:italic;">Babolat</span>
+      <span class="brands__item" style="font-size:1rem;font-weight:700;letter-spacing:-0.5px;">Wilson</span>
+      <span class="brands__item" style="font-size:0.9rem;font-weight:700;font-style:italic;">adidas</span>
+      <span class="brands__item" style="font-size:0.85rem;font-weight:700;">Heroe's</span>
+      <span class="brands__item" style="font-size:0.95rem;font-weight:900;letter-spacing:-1px;">on</span>
+      <span class="brands__item" style="font-size:0.9rem;font-weight:900;letter-spacing:1px;">alo yoga</span>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROMO BANNERS ===================== -->
+<section class="promo-banners">
+  <div class="container">
+    <div class="promo-banners__grid">
+      <div class="promo-banner promo-banner--dark">
+        <div class="promo-banner__content">
+          <div class="promo-banner__subtitle">OUTLET</div>
+          <div class="promo-banner__title">ДО <span>-50%</span></div>
+          <div class="promo-banner__desc">НА ПРОШЛЫЕ КОЛЛЕКЦИИ</div>
+          <a href="#" class="btn btn--primary">СМОТРЕТЬ <span class="btn__arrow">→</span></a>
+        </div>
+      </div>
+      <div class="promo-banner promo-banner--gray">
+        <div class="promo-banner__content">
+          <div class="promo-banner__subtitle">OFF COURT COLLECTION</div>
+          <div class="promo-banner__title" style="font-size:1.8rem;line-height:1.2;">Стиль за пределами корта</div>
+          <a href="#" class="btn btn--primary" style="margin-top:20px;">СМОТРЕТЬ КОЛЛЕКЦИЮ <span class="btn__arrow">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BENEFITS ===================== -->
+<section class="benefits">
+  <div class="container">
+    <div class="benefits__grid">
+      <div class="benefit">
+        <div class="benefit__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <div>
+          <div class="benefit__title">Быстрая доставка</div>
+          <div class="benefit__subtitle">по всей России</div>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div>
+          <div class="benefit__title">100% оригинал</div>
+          <div class="benefit__subtitle">гарантия подлинности</div>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 14 4 9 9 4"/><path d="M20 20v-7a4 4 0 0 0-4-4H4"/></svg>
+        </div>
+        <div>
+          <div class="benefit__title">Легкий возврат</div>
+          <div class="benefit__subtitle">14 дней на возврат</div>
+        </div>
+      </div>
+      <div class="benefit">
+        <div class="benefit__icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8ff00" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <div>
+          <div class="benefit__title">Безопасная оплата</div>
+          <div class="benefit__subtitle">защищенные платежи</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTAGRAM ===================== -->
+<section class="instagram">
+  <div class="container">
+    <div class="instagram__header">
+      <div>
+        <div class="instagram__title">Будь в игре</div>
+        <div class="instagram__subtitle">Следи за нами в Instagram</div>
+      </div>
+      <div class="instagram__follow">
+        <div class="instagram__handle">@padelup.store</div>
+        <div class="instagram__btn">ПОДПИСАТЬСЯ</div>
+      </div>
+    </div>
+    <div class="instagram__grid">
+      <!-- 6 placeholder cells -->
+      <div class="instagram__item" style="background:linear-gradient(135deg,#1a1a1a,#2a2a2a);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+      <div class="instagram__item" style="background:linear-gradient(135deg,#222,#333);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+      <div class="instagram__item" style="background:linear-gradient(135deg,#1e1e1e,#2e2e2e);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+      <div class="instagram__item" style="background:linear-gradient(135deg,#252525,#1a1a1a);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+      <div class="instagram__item" style="background:linear-gradient(135deg,#1a1a1a,#252525);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#444" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+      <div class="instagram__item" style="background:linear-gradient(135deg,#222,#1e1e1e);"><div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.5"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></div><div class="instagram__item-overlay"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/></svg></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== NEWSLETTER ===================== -->
+<section class="newsletter">
+  <div class="container">
+    <div>
+      <div class="newsletter__title">Получай первым</div>
+      <div class="newsletter__desc">Новости и специальные предложения</div>
+    </div>
+    <form class="newsletter__form" action="#" method="post">
+      <input type="email" class="newsletter__input" placeholder="Введите ваш e-mail" required>
+      <button type="submit" class="newsletter__btn">→</button>
+    </form>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <!-- Col 1: Logo + desc + social -->
+      <div>
+        <div class="footer__logo">Padel<span>Up</span></div>
+        <p class="footer__desc">Премиальная экипировка для падела. Оригинальные товары от ведущих мировых брендов с доставкой по всей России.</p>
+        <div class="footer__social">
+          <a href="#" aria-label="Telegram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></svg></a>
+        </div>
+      </div>
+      <!-- Col 2: Catalog -->
+      <div>
+        <h4 class="footer__heading">Каталог</h4>
+        <div class="footer__links">
+          <a href="#">Новинки</a>
+          <a href="#">Ракетки</a>
+          <a href="#">Одежда</a>
+          <a href="#">Обувь</a>
+          <a href="#">Аксессуары</a>
+          <a href="#">Outlet</a>
+          <a href="#">Off Court</a>
+        </div>
+      </div>
+      <!-- Col 3: Buyers -->
+      <div>
+        <h4 class="footer__heading">Покупателям</h4>
+        <div class="footer__links">
+          <a href="#">Доставка и оплата</a>
+          <a href="#">Возврат и обмен</a>
+          <a href="#">Таблица размеров</a>
+          <a href="#">Гарантии</a>
+          <a href="#">Часто задаваемые вопросы</a>
+        </div>
+      </div>
+      <!-- Col 4: About -->
+      <div>
+        <h4 class="footer__heading">О нас</h4>
+        <div class="footer__links">
+          <a href="#">О магазине</a>
+          <a href="#">Контакты</a>
+          <a href="#">Магазины</a>
+          <a href="#">Блог</a>
+          <a href="#">Партнерам</a>
+        </div>
+      </div>
+      <!-- Col 5: Contacts -->
+      <div>
+        <div class="footer__phone">8 (800) 555-45-45</div>
+        <div class="footer__phone-label">Ежедневно с 9:00 до 21:00</div>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2024 PadelUp. Все права защищены.</span>
+      <div class="footer__bottom-links">
+        <a href="#">Политика конфиденциальности</a>
+        <a href="#">Пользовательское соглашение</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  'use strict';
+
+  // Hero slider dots
+  const heroDots = document.querySelectorAll('.hero__dot');
+  const heroNums = document.querySelectorAll('.hero__slide-num');
+  let currentSlide = 0;
+
+  function updateSlider(index) {
+    heroDots.forEach(function(dot, i) {
+      dot.classList.toggle('active', i === index);
+    });
+    heroNums.forEach(function(num, i) {
+      num.classList.toggle('active', i === index);
+    });
+    currentSlide = index;
+  }
+
+  heroDots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      updateSlider(parseInt(this.dataset.slide));
+    });
+  });
+
+  const heroNext = document.querySelector('.hero__arrow--next');
+  const heroPrev = document.querySelector('.hero__arrow--prev');
+  if (heroNext) heroNext.addEventListener('click', function() { updateSlider((currentSlide + 1) % heroDots.length); });
+  if (heroPrev) heroPrev.addEventListener('click', function() { updateSlider((currentSlide - 1 + heroDots.length) % heroDots.length); });
+  if (heroDots.length > 0) setInterval(function() { updateSlider((currentSlide + 1) % heroDots.length); }, 5000);
+
+  // Header scroll shadow
+  const header = document.getElementById('header');
+  if (header) {
+    window.addEventListener('scroll', function() {
+      header.style.boxShadow = window.pageYOffset > 100 ? '0 2px 20px rgba(0,0,0,0.1)' : 'none';
+    });
+  }
+
+  // Brand filter toggle
+  document.querySelectorAll('.brand-filter').forEach(function(f) {
+    f.addEventListener('click', function() { this.classList.toggle('active'); });
+  });
+
+  // Newsletter form
+  document.addEventListener('submit', function(e) {
+    const form = e.target.closest('.newsletter__form');
+    if (form) {
+      e.preventDefault();
+      const input = form.querySelector('.newsletter__input');
+      const btn = form.querySelector('.newsletter__btn');
+      if (input && input.value) {
+        btn.textContent = '✓';
+        btn.style.background = '#4CAF50';
+        input.value = '';
+        setTimeout(function() { btn.textContent = '→'; btn.style.background = ''; }, 2000);
+      }
+    }
+  });
+
+  // Cart button animation
+  document.addEventListener('click', function(e) {
+    const btn = e.target.closest('.product-card__cart-btn');
+    if (!btn) return;
+    e.preventDefault();
+    const orig = btn.innerHTML;
+    btn.style.background = '#4CAF50';
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+    setTimeout(function() { btn.innerHTML = orig; btn.style.background = ''; }, 1500);
+  });
+})();
+</script>
+</body>
+</html>
