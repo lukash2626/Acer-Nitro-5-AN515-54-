@@ -19,6 +19,7 @@
 | AppleALC | 1.9.7 |
 | RestrictEvents | 1.1.6 |
 | IntelMausi | 1.0.8 |
+| NVMeFix | 1.1.4 |
 
 Добавлены SSDT для Coffee Lake/B360 (`EC-USBX`, `PLUG`, `PMC`, `AWAC`), headless-настройка UHD 630 из старой EFI, Intel Ethernet, карта USB для ASUS TUF B360-PRO GAMING и SMBIOS `iMac20,1`, который распознаётся Tahoe. Для OTA включены `RestrictEvents` и `revpatch=sbvmm`; `SecureBootModel` временно отключён.
 
@@ -68,3 +69,8 @@ cd /путь/к/распакованному/архиву/WIFI-BCM43602
 ### Если Ventura зависает во время обновления до Tahoe
 
 До запуска установщика выполните `WIFI-BCM43602/prepare-tahoe-update.command` на смонтированном рабочем EFI. Команда отключает BCMC (он не должен загружаться в установщике) и WhateverGreen (на Tahoe возможны зависания с AMD Polaris), сохраняя backup `config.plist`. Затем перезагрузитесь, выполните Reset NVRAM и повторите обновление через Ethernet. В архиве оба драйвера уже отключены по умолчанию. После успешной установки включайте только BCMC командой `enable-wifi.command`; WhateverGreen для RX 560 оставьте отключённым, если графика работает нормально.
+
+
+### Стабильность NVMe при подготовке обновления
+
+В исходной Clover EFI использовался NVMeFix. Он возвращён в OpenCore EFI (`NVMeFix 1.1.4`), поскольку подготовка полного установщика создаёт высокую нагрузку на SSD и без этого драйвера некоторые NVMe-контроллеры могут зависать. Перед повторной попыткой замените EFI обновлённой версией, выполните Reset NVRAM и проверьте обычную загрузку Ventura.
