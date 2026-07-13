@@ -64,3 +64,7 @@ cd /путь/к/распакованному/архиву/WIFI-BCM43602
 ./WIFI-BCM43602/toggle-bcmc.sh disable /Volumes/EFI/EFI/OC/config.plist
 ./WIFI-BCM43602/toggle-bcmc.sh enable  /Volumes/EFI/EFI/OC/config.plist
 ```
+
+### Если Ventura зависает во время обновления до Tahoe
+
+До запуска установщика выполните `WIFI-BCM43602/prepare-tahoe-update.command` на смонтированном рабочем EFI. Команда отключает BCMC (он не должен загружаться в установщике) и WhateverGreen (на Tahoe возможны зависания с AMD Polaris), сохраняя backup `config.plist`. Затем перезагрузитесь, выполните Reset NVRAM и повторите обновление через Ethernet. В архиве оба драйвера уже отключены по умолчанию. После успешной установки включайте только BCMC командой `enable-wifi.command`; WhateverGreen для RX 560 оставьте отключённым, если графика работает нормально.

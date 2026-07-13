@@ -180,7 +180,7 @@
 				<key>Comment</key>
 				<string>AppleBCMWLANCompanion 1.0.0 — BCM43602, Tahoe</string>
 				<key>Enabled</key>
-				<true/>
+				<false/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/AppleBCMWLANCompanion</string>
 				<key>MaxKernel</key>
@@ -252,7 +252,7 @@
 				<key>Comment</key>
 				<string>WhateverGreen.kext 1.7.0</string>
 				<key>Enabled</key>
-				<true/>
+				<false/>
 				<key>ExecutablePath</key>
 				<string>Contents/MacOS/WhateverGreen</string>
 				<key>MaxKernel</key>
