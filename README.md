@@ -86,3 +86,7 @@ cd /путь/к/распакованному/архиву/WIFI-BCM43602
 ## Вариант MacPro7,1
 
 Архив `ASUS TUF B360-PRO GAMING+RX560-Tahoe-MacPro7,1.zip` использует новый уникальный комплект SMBIOS `MacPro7,1`. Инъекция UHD 630 удалена. Перед запуском этого варианта отключите Intel iGPU в BIOS (`Primary Display = PCIe/PEG`, `iGPU Multi-Monitor = Disabled`) и подключите монитор только к RX 560. WhateverGreen включён, BCMC выключен. После первой успешной загрузки Wi‑Fi можно включить подготовленным скриптом.
+
+## Минимальная USB EFI для Recovery
+
+`ASUS-TUF-B360-Tahoe-MacPro7,1-Recovery-Minimal.zip` предназначен только для аварийной загрузочной FAT32-флешки. В нём включены лишь Lilu, VirtualSMC, WhateverGreen и USB-драйверы; отключены BCMC, NVMeFix, AppleALC, датчики SMC, RestrictEvents и Ethernet. Распакуйте папку `EFI` в корень отдельной FAT32-флешки, загрузите её через UEFI и попробуйте открыть Recovery. Рабочий EFI на диске этим архивом не заменяйте. Интернет в Recovery в минимальном профиле отсутствует; профиль нужен для доступа к Terminal, Disk Utility и журналу установки.
