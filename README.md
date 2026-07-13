@@ -82,3 +82,7 @@ cd /путь/к/распакованному/архиву/WIFI-BCM43602
 ### Безопасный первый запуск Tahoe
 
 В итоговой конфигурации `WhateverGreen.kext` и `AppleBCMWLANCompanion.kext` отключены для устранения цикла перезагрузки Tahoe. Сначала проверьте стабильную загрузку и работу RX 560. Затем можно включить только Wi‑Fi командой `WIFI-BCM43602/enable-wifi.command`. WhateverGreen оставьте отключённым, если RX 560 работает с ускорением и корректным разрешением.
+
+## Вариант MacPro7,1
+
+Архив `ASUS TUF B360-PRO GAMING+RX560-Tahoe-MacPro7,1.zip` использует новый уникальный комплект SMBIOS `MacPro7,1`. Инъекция UHD 630 удалена. Перед запуском этого варианта отключите Intel iGPU в BIOS (`Primary Display = PCIe/PEG`, `iGPU Multi-Monitor = Disabled`) и подключите монитор только к RX 560. WhateverGreen включён, BCMC выключен. После первой успешной загрузки Wi‑Fi можно включить подготовленным скриптом.
