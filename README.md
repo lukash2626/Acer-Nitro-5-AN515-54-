@@ -55,3 +55,12 @@ cd /путь/к/распакованному/архиву/WIFI-BCM43602
 В BIOS обязательно включите **Intel VT-d**. В конфигурации `DisableIoMapper=False`, так как новый драйвер Apple и BCMC используют AppleVTD. SIP оставлен включённым; root patch для этого способа не требуется.
 
 Ограничения BCMC: AirDrop/AWDL пока не работает, возможны проблемы со сном. Перед очередным OTA-обновлением Tahoe временно установите `Enabled=False` для `AppleBCMWLANCompanion.kext`, а после завершения обновления включите обратно — иначе на финальной стадии OTA возможен kernel panic. Во время обновления используйте Ethernet.
+
+### Быстрое отключение BCMC перед OTA
+
+Смонтируйте EFI-раздел и дважды нажмите `WIFI-BCM43602/disable-wifi.command`. Скрипт сам найдёт `config.plist`, создаст резервную копию и отключит `AppleBCMWLANCompanion`. После обновления дважды нажмите `enable-wifi.command` и перезагрузитесь. Если EFI имеет нестандартную точку монтирования, можно явно передать файл:
+
+```bash
+./WIFI-BCM43602/toggle-bcmc.sh disable /Volumes/EFI/EFI/OC/config.plist
+./WIFI-BCM43602/toggle-bcmc.sh enable  /Volumes/EFI/EFI/OC/config.plist
+```
